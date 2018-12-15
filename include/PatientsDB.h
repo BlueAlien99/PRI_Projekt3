@@ -17,7 +17,9 @@ struct Patient{
 };
 
 void addPatient();
+void sortPatients();
 void printPatients();
 void populateDB();
+char* strGen();
 
 #endif

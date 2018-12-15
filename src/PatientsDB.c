@@ -18,6 +18,10 @@ void addPatient(Patient **head, Patient **tail, char name[], char surname[]){
 	}
 }
 
+sortPatients(){
+
+}
+
 void printPatients(Patient *head){
 	int count = 0;
 	while(head != NULL){
@@ -29,6 +33,14 @@ void printPatients(Patient *head){
 	printf("\nTotal: %d records\n\n", count);
 }
 
-void populateDB(){
+void populateDB(Patient **head, Patient **tail, int records){
+	for(int i = 0; i < records; ++i){
+		
+		addPatient(head, tail, , );
+	}
+	printf("Generated %d records!", records);
+}
+
+char* strGen(){
 
 }
