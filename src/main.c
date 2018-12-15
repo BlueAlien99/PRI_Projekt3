@@ -9,6 +9,10 @@ int main(void){
 	Patient *tail = NULL;
 
 	//
+		addPatient(&head, &tail, "John", "Kowalski");
+		addPatient(&head, &tail, "Anne", "Greenhill");
+		addPatient(&head, &tail, "Steven", "Stephanson");
 
+		printPatients(head);
 	//
 }

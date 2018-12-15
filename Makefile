@@ -1,5 +1,6 @@
-CC := gcc
-CFLAGS := -Wall -pedantic
+CC := gcc -std=c99
+CFLAGS := -Wall -pedantic -g
+#remove -g flag
 INC := -Iinclude
 #LIB :=
 
@@ -12,7 +13,8 @@ SRCEXT := c
 SOURCES := $(wildcard $(SRCDIR)/*.$(SRCEXT))
 OBJECTS := $(SOURCES: .$(SRCEXT)=.o)
 
-$(TARGET): $(OBJECTS)
+#$(TARGET): $(OBJECTS)
+Clinic: $(OBJECTS)
 	mkdir -p $(TARGETDIR)
 	$(CC) $^ -o $@ $(CFLAGS)
 
@@ -22,7 +24,7 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 
 .PHONY: clean
 clean:
-	rm -f -r $(BUILDDIR) $(TARGETDIR)
+	rm -f -r $(BUILDDIR) $(TARGETDIR) Clinic
 
 tests:
 	$(CC) test/test.c -o $(TARGETDIR)/test $(CFLAGS) $(INC)
