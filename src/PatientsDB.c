@@ -18,12 +18,45 @@ void addPatient(Patient **head, Patient **tail, char name[], char surname[]){
 	}
 }
 
-Patient* findPatient(){
-
+Patient* findPatient(Patient *head, char name[], char surname[], _Bool info){
+	while(head != NULL){
+		if(strcmp(head->surname, surname) == 0
+			&& strcmp(head->name, name) == 0){
+			if(info){
+				//TODO: print all the info
+			}
+			return head;
+		}
+		head = head->next;
+	}
+	if(info){
+		printf("\nCouldn't find %s %s!\n\n", name, surname);
+	}
+	return NULL;
 }
 
-void delPatient(){
-
+void delPatient(Patient **head, Patient **tail, char name[], char surname[]){
+	Patient *del = findPatient(*head, name, surname, 0);
+	if(del == NULL){
+		printf("\nCouldn't find %s %s!\n\n", name, surname);
+		return;
+	}
+	if(del == *head && del == *tail){
+		*head = del->next;
+		*tail = del->prev;
+	}
+	else if(del == *head){
+		del->next->prev = del->prev;
+		*head = del->next;
+	}
+	else if(del == *tail){
+		del->prev->next = del->next;
+		*tail = del->prev;
+	} else{
+		del->prev->next = del->next;
+		del->next->prev = del->prev;
+	}
+	free(del);
 }
 
 void moveEl(Patient **src, Patient **target, Patient **targetTail){
@@ -99,8 +132,12 @@ void printPatients(Patient *head){
 		++count;
 		head = head->next;
 	}
-	printf("\n^^^^^");
-	printf("\nTotal: %d records\n\n", count);
+	if(count == 0){
+		printf("\nDatabase is empty!\n\n");
+	} else{
+		printf("\n^^^^^");
+		printf("\nTotal: %d records\n\n", count);
+	}
 }
 
 void populateDB(Patient **head, Patient **tail, int records){
@@ -130,13 +167,14 @@ char* strGen(int min, int max){
 }
 
 void freeDB(Patient **head, Patient **tail){
+	if(*head == NULL){
+		return;
+	}
 	while((*head)->next != NULL){
 		*head = (*head)->next;
 		free((*head)->prev);
 	}
-	if(*tail != NULL){
-		free(*tail);
-		*tail = NULL;
-		*head = NULL;
-	}
+	free(*tail);
+	*tail = NULL;
+	*head = NULL;
 }

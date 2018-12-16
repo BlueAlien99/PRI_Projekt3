@@ -18,7 +18,7 @@ struct Patient{
 };
 
 void addPatient();
-Patient* findPatient();
+Patient* findPatient(Patient*, char*, char*, _Bool);
 void delPatient();
 void moveEl();
 void mergeSortWizard();

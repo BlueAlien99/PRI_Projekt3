@@ -13,16 +13,20 @@ int main(void){
 
 	//
 
-		addPatient(&head, &tail, "John", "Kowalski");
+		//addPatient(&head, &tail, "John", "Kowalski");
 		addPatient(&head, &tail, "Anne", "Greenhill");
-		addPatient(&head, &tail, "Steven", "Stephanson");
-		addPatient(&head, &tail, "Johna", "Kowalski");
-		addPatient(&head, &tail, "Marry", "Blood");
+		//addPatient(&head, &tail, "Marry", "Blood");
 		addPatient(&head, &tail, "Santa", "Claus");
 		//populateDB(&head, &tail, 20);
+		//printPatients(head);
+		//mergeSortWizard(&head, &tail);
+		delPatient(&head, &tail, "Anne", "Greenhill");
 		printPatients(head);
-		mergeSortWizard(&head, &tail);
+		delPatient(&head, &tail, "Santa", "Claus");
 		printPatients(head);
+		//addPatient(&head, &tail, "Steven", "Stephanson");
+		//addPatient(&head, &tail, "Johna", "Kowalski");
+		//printPatients(head);
 
 		freeDB(&head, &tail);
 	//
