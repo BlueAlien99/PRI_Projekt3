@@ -2,14 +2,17 @@
 #error C99 compiler required!
 #endif
 
+#include <time.h>
+
 #include "../include/PatientsDB.h"
 
 int main(void){
-	srand(time());
+	srand(time(NULL));
 	Patient *head = NULL;
 	Patient *tail = NULL;
 
 	//
+
 		addPatient(&head, &tail, "John", "Kowalski");
 		addPatient(&head, &tail, "Anne", "Greenhill");
 		addPatient(&head, &tail, "Steven", "Stephanson");
