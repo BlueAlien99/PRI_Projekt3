@@ -4,6 +4,7 @@
 
 #include <time.h>
 
+#include "../include/IOHandler.h"
 #include "../include/PatientsDB.h"
 
 int main(void){
