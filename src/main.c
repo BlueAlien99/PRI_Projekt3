@@ -16,8 +16,14 @@ int main(void){
 		addPatient(&head, &tail, "John", "Kowalski");
 		addPatient(&head, &tail, "Anne", "Greenhill");
 		addPatient(&head, &tail, "Steven", "Stephanson");
-		populateDB(&head, &tail, 20);
-
+		addPatient(&head, &tail, "Johna", "Kowalski");
+		addPatient(&head, &tail, "Marry", "Blood");
+		addPatient(&head, &tail, "Santa", "Claus");
+		//populateDB(&head, &tail, 20);
 		printPatients(head);
+		mergeSortWizard(&head, &tail);
+		printPatients(head);
+
+		freeDB(&head, &tail);
 	//
 }

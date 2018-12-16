@@ -18,9 +18,15 @@ struct Patient{
 };
 
 void addPatient();
-void sortPatients();
+Patient* findPatient();
+void delPatient();
+void moveEl();
+void mergeSortWizard();
+Patient* mergeSort();
+Patient* merge();
 void printPatients();
 void populateDB();
 char* strGen();
+void freeDB();
 
 #endif
