@@ -1,5 +1,8 @@
 #include "../include/PatientsDB.h"
 
+const char K_NAME[] = "Name";
+const char K_SURNAME[] = "Surname";
+
 void addPatient(Patient **head, Patient **tail, char name[], char surname[]){
 	Patient *patient = malloc(sizeof(Patient));
 	if(patient == NULL){

@@ -14,20 +14,22 @@ int main(void){
 
 	//
 
-		//addPatient(&head, &tail, "John", "Kowalski");
+		/*addPatient(&head, &tail, "John", "Kowalski");
 		addPatient(&head, &tail, "Anne", "Greenhill");
-		//addPatient(&head, &tail, "Marry", "Blood");
+		addPatient(&head, &tail, "Marry", "Blood");
 		addPatient(&head, &tail, "Santa", "Claus");
-		//populateDB(&head, &tail, 20);
+		//populateDB(&head, &tail, 5);
 		//printPatients(head);
 		//mergeSortWizard(&head, &tail);
-		delPatient(&head, &tail, "Anne", "Greenhill");
-		printPatients(head);
-		delPatient(&head, &tail, "Santa", "Claus");
-		printPatients(head);
-		//addPatient(&head, &tail, "Steven", "Stephanson");
-		//addPatient(&head, &tail, "Johna", "Kowalski");
+		//delPatient(&head, &tail, "Anne", "Greenhill");
 		//printPatients(head);
+		//delPatient(&head, &tail, "Santa", "Claus");
+		//printPatients(head);
+		addPatient(&head, &tail, "Steven", "Stephanson");
+		addPatient(&head, &tail, "Johna", "Kowalski");*/
+		//printPatients(head);
+		//saveFile(head);
+		readFile(&head, &tail);
 
 		freeDB(&head, &tail);
 	//
