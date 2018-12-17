@@ -30,6 +30,7 @@ int main(void){
 		//saveFile(head);
 		readFile(&head, &tail);
 		printPatients(head);
+		saveFile(head);
 
 		freeDB(&head, &tail);
 	//

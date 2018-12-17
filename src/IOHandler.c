@@ -47,7 +47,7 @@ _Bool readString(FILE *file, const char str[], char des[]){
 		char *beg = fstr+strlen(str)+4;
 		char *end = strrchr(fstr, '"');
 		ptrdiff_t len = end-beg;
-		if(len > 0){
+		if(len > 0 && len <= MAX_STR){
 			strncpy(des, beg, len);
 			des[len] = '\0';
 			return 1;
