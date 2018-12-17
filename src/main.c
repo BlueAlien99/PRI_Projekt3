@@ -28,9 +28,9 @@ int main(void){
 		addPatient(&head, &tail, "Steven", "Stephanson");
 		addPatient(&head, &tail, "Johna", "Kowalski");*/
 		//saveFile(head);
-		readFile(&head, &tail);
+		readFile(&head, &tail, 0);
 		printPatients(head);
-		saveFile(head);
+		//saveFile(head, 0);
 
 		freeDB(&head, &tail);
 	//

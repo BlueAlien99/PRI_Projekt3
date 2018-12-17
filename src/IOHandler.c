@@ -1,9 +1,37 @@
 #include "../include/IOHandler.h"
 
-void saveFile(Patient *head){
-	FILE *file = fopen("xd.txt", "w");
+_Bool clearBuffer(){
+	_Bool clutter = 0;
+	char c = getchar();
+	while(c != ' ' && c != '\t' && c != '\n' && c != EOF){
+		clutter = 1;
+		c = getchar();
+	}
+	return clutter;
+}
+
+void getPath(char path[], _Bool def){
+	if(!def){
+		printf("\nSpecify path to a file (64-char limit)...\n");
+		fgets(path, MAX_STR+2, stdin);
+		path[strlen(path)-1] = '\0';
+	}
+	_Bool clutter = 0;
+	if(strlen(path) == MAX_STR){
+		clutter = clearBuffer();
+	}
+	if(def || clutter || !strcmp(path, "")){
+		printf("Following a default path...\n");
+		strcpy(path, "database.txt");
+	}
+}
+
+void saveFile(Patient *head, _Bool def){
+	char path[MAX_STR+2];
+	getPath(path, def);
+	FILE *file = fopen(path, "w");
 	if(file == NULL){
-		printf("\nCouldn't create a file!\n\n");
+		printf("Couldn't create a file!\n\n");
 		return;
 	}
 	while(head != NULL){
@@ -16,10 +44,12 @@ void saveFile(Patient *head){
 	fclose(file);
 }
 
-void readFile(Patient **head, Patient **tail){
-	FILE *file = fopen("xd.txt", "r");
+void readFile(Patient **head, Patient **tail, _Bool def){
+	char path[MAX_STR+2];
+	getPath(path, def);
+	FILE *file = fopen(path, "r");
 	if(file == NULL){
-		printf("\nCouldn't open a file!\n\n");
+		printf("Couldn't open a file!\n\n");
 		return;
 	}
 	char name[MAX_STR+1];
