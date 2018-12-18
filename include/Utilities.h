@@ -6,6 +6,7 @@
 #include <stdlib.h>
 
 _Bool clearBuffer();
+int getInt();
 char* strGen();
 
 #endif

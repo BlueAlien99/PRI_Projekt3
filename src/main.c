@@ -16,7 +16,7 @@ int main(void){
 	Patient *tail = NULL;
 	printf("\nWelcome to medical clinic!\n");
 	help();
-	menu();
+	menu(&head, &tail);
 	freeDB(&head, &tail);
 	return 0;
 }
@@ -37,7 +37,7 @@ void help(){
 	printf("\n\n");
 }
 
-void menu(){
+void menu(Patient **head, Patient **tail){
 	_Bool end = 0;
 	do{
 		switch(getInt()){
@@ -47,24 +47,25 @@ void menu(){
 			//case 1:
 				break;
 			case 2:
-				printPatients(head);
+				printPatients(*head);
 				break;
 			case 3:
-				mergeSortWizard(&head, &tail);
+				mergeSortWizard(head, tail);
 				break;
 			//case 4:
 				break;
 			//case 5:
 				break;
-			//case 7:
+			case 7:
+				populateDB(head, tail);
 				break;
 			case 8:
-				readFile(&head, &tail);
+				readFile(head, tail);
 				break;
 			//case 81:
 				break;
 			case 9:
-				saveFile(head);
+				saveFile(*head);
 				break;
 			//case 91:
 				break;

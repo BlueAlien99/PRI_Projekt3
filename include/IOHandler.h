@@ -11,7 +11,6 @@
 #define LEN(S) "%"#S"s"
 #define MLEN(S) LEN(S)
 
-int getInt();
 void getPath(char*);
 void saveFile(Patient*);
 void readFile(Patient**, Patient**);

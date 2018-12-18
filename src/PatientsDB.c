@@ -143,7 +143,13 @@ void printPatients(Patient *head){
 	}
 }
 
-void populateDB(Patient **head, Patient **tail, int records){
+void populateDB(Patient **head, Patient **tail){
+	printf("\nHow many records would you like to generate?\n");
+	int records = getInt();
+	if(records < 1 || records > 1000){
+		printf("Error! Value should be within [1,1000] range!\n\n");
+		return;
+	}
 	for(int i = 0; i < records; ++i){
 		char *name = strGen(3, 8);
 		char *surname = strGen(4, 10);
@@ -151,7 +157,7 @@ void populateDB(Patient **head, Patient **tail, int records){
 		free(name);
 		free(surname);
 	}
-	printf("\nGenerated %d records!\n\n", records);
+	printf("Generated %d records!\n\n", records);
 }
 
 void freeDB(Patient **head, Patient **tail){

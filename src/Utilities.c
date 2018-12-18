@@ -10,6 +10,18 @@ _Bool clearBuffer(){
 	return clutter;
 }
 
+int getInt(){
+	int x;
+	if(scanf("%d", &x) != 1){
+		clearBuffer();
+		return -1;
+	}
+	else if(clearBuffer()){
+		return -1;
+	}
+	return x;
+}
+
 char* strGen(int min, int max){
 	int l = min + rand() % (max-min+1);
 	char *str = malloc(l+1);

@@ -7,18 +7,6 @@
 	}
 }*/
 
-int getInt(){
-	int x;
-	if(scanf("%d", &x) != 1){
-		clearBuffer();
-		return -1;
-	}
-	else if(clearBuffer()){
-		return -1;
-	}
-	return x;
-}
-
 void getPath(char path[]){
 	_Bool clutter = 0;
 	printf("\nSpecify path to a file (64-char limit)...\n");
