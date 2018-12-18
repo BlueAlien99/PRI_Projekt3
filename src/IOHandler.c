@@ -1,15 +1,5 @@
 #include "../include/IOHandler.h"
 
-_Bool clearBuffer(){
-	_Bool clutter = 0;
-	char c = getchar();
-	while(c != ' ' && c != '\t' && c != '\n' && c != EOF){
-		clutter = 1;
-		c = getchar();
-	}
-	return clutter;
-}
-
 void getPath(char path[], _Bool def){
 	if(!def){
 		printf("\nSpecify path to a file (64-char limit)...\n");

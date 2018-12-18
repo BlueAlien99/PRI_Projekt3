@@ -12,23 +12,22 @@ int main(void){
 	Patient *head = NULL;
 	Patient *tail = NULL;
 
-	//
 
-		/*addPatient(&head, &tail, "John", "Kowalski");
-		addPatient(&head, &tail, "Anne", "Greenhill");
-		addPatient(&head, &tail, "Marry", "Blood");
-		addPatient(&head, &tail, "Santa", "Claus");
-		//populateDB(&head, &tail, 5);
-		//printPatients(head);
-		//mergeSortWizard(&head, &tail);
+
+
+
+
+
+
+
+
+
+	//
+		populateDB(&head, &tail, 5);
 		//delPatient(&head, &tail, "Anne", "Greenhill");
-		//printPatients(head);
-		//delPatient(&head, &tail, "Santa", "Claus");
-		//printPatients(head);
-		addPatient(&head, &tail, "Steven", "Stephanson");
-		addPatient(&head, &tail, "Johna", "Kowalski");*/
-		//saveFile(head);
+		//addPatient(&head, &tail, "Steven", "Stephanson");
 		readFile(&head, &tail, 0);
+		mergeSortWizard(&head, &tail);
 		printPatients(head);
 		//saveFile(head, 0);
 
