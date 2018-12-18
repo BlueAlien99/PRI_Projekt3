@@ -3,6 +3,10 @@
 const char K_NAME[] = "Name";
 const char K_SURNAME[] = "Surname";
 
+void addPatientWizard(Patient **head, Patient **tail){
+	
+}
+
 void addPatient(Patient **head, Patient **tail, char name[], char surname[]){
 	Patient *patient = malloc(sizeof(Patient));
 	if(patient == NULL){
@@ -21,27 +25,32 @@ void addPatient(Patient **head, Patient **tail, char name[], char surname[]){
 	}
 }
 
-Patient* findPatient(Patient *head, char name[], char surname[], _Bool info){
+Patient* findPatient(Patient *head, _Bool info){
+	char name[MAX_STR+1];
+	char surname[MAX_STR+1];
+	printf("\nEnter name and surname of a patient...\n");
+	if(!getString(name) || !getString(surname)){
+		printf("Wrong input!\n\n");
+		return NULL;
+	}
 	while(head != NULL){
 		if(strcmp(head->surname, surname) == 0
 			&& strcmp(head->name, name) == 0){
 			if(info){
+				printf("placeholder\n");
 				//TODO: print all the info
 			}
 			return head;
 		}
 		head = head->next;
 	}
-	if(info){
-		printf("\nCouldn't find %s %s!\n\n", name, surname);
-	}
+	printf("Couldn't find %s %s!\n\n", name, surname);
 	return NULL;
 }
 
-void delPatient(Patient **head, Patient **tail, char name[], char surname[]){
-	Patient *del = findPatient(*head, name, surname, 0);
+void delPatient(Patient **head, Patient **tail){
+	Patient *del = findPatient(*head, 0);
 	if(del == NULL){
-		printf("\nCouldn't find %s %s!\n\n", name, surname);
 		return;
 	}
 	if(del == *head && del == *tail){
@@ -60,6 +69,7 @@ void delPatient(Patient **head, Patient **tail, char name[], char surname[]){
 		del->next->prev = del->prev;
 	}
 	free(del);
+	printf("Deletion successful!\n\n");
 }
 
 void moveEl(Patient **src, Patient **target, Patient **targetTail){

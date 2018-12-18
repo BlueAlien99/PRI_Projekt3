@@ -1,12 +1,5 @@
 #include "../include/IOHandler.h"
 
-/*void getInt(char cmd[]){
-	scanf(MLEN(MAX_SCANF), cmd);
-	if(clearBuffer()){
-		cmd = "";
-	}
-}*/
-
 void getPath(char path[]){
 	_Bool clutter = 0;
 	printf("\nSpecify path to a file (64-char limit)...\n");

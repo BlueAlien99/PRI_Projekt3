@@ -7,8 +7,6 @@
 
 #include "Utilities.h"
 
-#define MAX_STR 64
-
 extern const char K_NAME[];
 extern const char K_SURNAME[];
 
@@ -21,8 +19,9 @@ struct Patient{
 	char surname[MAX_STR+1];
 };
 
+void addPatientWizard();
 void addPatient();
-Patient* findPatient(Patient*, char*, char*, _Bool);
+Patient* findPatient(Patient*, _Bool);
 void delPatient();
 void moveEl();
 void mergeSortWizard();

@@ -8,8 +8,6 @@
 
 #define MAX_FGETS 128
 #define MAX_SCANF 64
-#define LEN(S) "%"#S"s"
-#define MLEN(S) LEN(S)
 
 void getPath(char*);
 void saveFile(Patient*);

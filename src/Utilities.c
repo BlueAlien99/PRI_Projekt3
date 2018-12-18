@@ -10,6 +10,15 @@ _Bool clearBuffer(){
 	return clutter;
 }
 
+_Bool getString(char str[]){
+	scanf(MLEN(MAX_STR), str);
+	if(clearBuffer()){
+		str = "";
+		return 0;
+	}
+	return 1;
+}
+
 int getInt(){
 	int x;
 	if(scanf("%d", &x) != 1){

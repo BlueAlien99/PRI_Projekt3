@@ -44,7 +44,8 @@ void menu(Patient **head, Patient **tail){
 			case 0:
 				end = 1;
 				break;
-			//case 1:
+			case 1:
+				findPatient(*head, 1);
 				break;
 			case 2:
 				printPatients(*head);
@@ -52,9 +53,11 @@ void menu(Patient **head, Patient **tail){
 			case 3:
 				mergeSortWizard(head, tail);
 				break;
-			//case 4:
+			case 4:
+				addPatientWizard(head, tail);
 				break;
-			//case 5:
+			case 5:
+				delPatient(head, tail);
 				break;
 			case 7:
 				populateDB(head, tail);
