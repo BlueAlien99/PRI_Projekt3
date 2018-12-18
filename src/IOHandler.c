@@ -1,24 +1,42 @@
 #include "../include/IOHandler.h"
 
-void getPath(char path[], _Bool def){
-	if(!def){
-		printf("\nSpecify path to a file (64-char limit)...\n");
-		fgets(path, MAX_STR+2, stdin);
-		path[strlen(path)-1] = '\0';
+/*void getInt(char cmd[]){
+	scanf(MLEN(MAX_SCANF), cmd);
+	if(clearBuffer()){
+		cmd = "";
 	}
+}*/
+
+int getInt(){
+	int x;
+	if(scanf("%d", &x) != 1){
+		clearBuffer();
+		return -1;
+	}
+	else if(clearBuffer()){
+		return -1;
+	}
+	return x;
+}
+
+void getPath(char path[]){
 	_Bool clutter = 0;
+	printf("\nSpecify path to a file (64-char limit)...\n");
+	printf("<Press 'Enter' for ./database.txt>\n");
+	fgets(path, MAX_STR+2, stdin);
+	path[strlen(path)-1] = '\0';
 	if(strlen(path) == MAX_STR){
 		clutter = clearBuffer();
 	}
-	if(def || clutter || !strcmp(path, "")){
+	if(clutter || !strcmp(path, "")){
 		printf("Following a default path...\n");
 		strcpy(path, "database.txt");
 	}
 }
 
-void saveFile(Patient *head, _Bool def){
+void saveFile(Patient *head){
 	char path[MAX_STR+2];
-	getPath(path, def);
+	getPath(path);
 	FILE *file = fopen(path, "w");
 	if(file == NULL){
 		printf("Couldn't create a file!\n\n");
@@ -32,11 +50,12 @@ void saveFile(Patient *head, _Bool def){
 		head = head->next;
 	}
 	fclose(file);
+	printf("Database exported successfully!\n\n");
 }
 
-void readFile(Patient **head, Patient **tail, _Bool def){
+void readFile(Patient **head, Patient **tail){
 	char path[MAX_STR+2];
-	getPath(path, def);
+	getPath(path);
 	FILE *file = fopen(path, "r");
 	if(file == NULL){
 		printf("Couldn't open a file!\n\n");
@@ -51,6 +70,7 @@ void readFile(Patient **head, Patient **tail, _Bool def){
 		}
 	}
 	fclose(file);
+	printf("Database imported successfully!\n\n");
 }
 
 _Bool readChar(FILE *file, char c){

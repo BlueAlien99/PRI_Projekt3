@@ -136,7 +136,7 @@ void printPatients(Patient *head){
 		head = head->next;
 	}
 	if(count == 0){
-		printf("\nDatabase is empty!\n\n");
+		printf("Database is empty!\n\n");
 	} else{
 		printf("\n^^^^^");
 		printf("\nTotal: %d records\n\n", count);

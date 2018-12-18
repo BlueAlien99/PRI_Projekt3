@@ -7,10 +7,14 @@
 #include "PatientsDB.h"
 
 #define MAX_FGETS 128
+#define MAX_SCANF 64
+#define LEN(S) "%"#S"s"
+#define MLEN(S) LEN(S)
 
-void getPath(char*, _Bool);
-void saveFile(Patient*, _Bool);
-void readFile(Patient**, Patient**, _Bool);
+int getInt();
+void getPath(char*);
+void saveFile(Patient*);
+void readFile(Patient**, Patient**);
 _Bool readChar(FILE*, char);
 _Bool readString(FILE*, const char*, char*);
 

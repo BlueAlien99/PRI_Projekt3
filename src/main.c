@@ -7,30 +7,81 @@
 #include "../include/IOHandler.h"
 #include "../include/PatientsDB.h"
 
+void help();
+void menu();
+
 int main(void){
 	srand(time(NULL));
 	Patient *head = NULL;
 	Patient *tail = NULL;
+	printf("\nWelcome to medical clinic!\n");
+	help();
+	_Bool end = 0;
+	do{
+		switch(getInt()){
+			case 0:
+				end = 1;
+				break;
+			//case 1:
+				break;
+			case 2:
+				printPatients(head);
+				break;
+			//case 3:
+				break;
+			//case 4:
+				break;
+			//case 5:
+				break;
+			//case 7:
+				break;
+			case 8:
+				readFile(&head, &tail);
+				break;
+			//case 81:
+				break;
+			case 9:
+				saveFile(head);
+				break;
+			//case 91:
+				break;
+			case 123:
+				help();
+				break;
+			default:
+				printf("Unrecognized parameter! Type '123' to get help...\n\n");
+		}
+	} while(!end);
+	freeDB(&head, &tail);
+	return 0;
 
 
-
-
-
-
-
-
-
-
-
-	//
-		populateDB(&head, &tail, 5);
+	/*	populateDB(&head, &tail, 5);
 		//delPatient(&head, &tail, "Anne", "Greenhill");
 		//addPatient(&head, &tail, "Steven", "Stephanson");
 		readFile(&head, &tail, 0);
 		mergeSortWizard(&head, &tail);
 		printPatients(head);
 		//saveFile(head, 0);
+*/
+}
 
-		freeDB(&head, &tail);
-	//
+void help(){
+	printf("\nAvailable actions:");
+	printf("\n0  - Exit");
+	printf("\n1  - Find patient");
+	printf("\n2  - Print all names");
+	printf("\n3  - Sort database");
+	printf("\n4  - Add new patient");
+	printf("\n5  - Delete existing patient");
+	printf("\n7  - Populate database with random data");
+	printf("\n8  - Import from file");
+	printf("\n81 - Import from file (binary)");
+	printf("\n9  - Export to file");
+	printf("\n91 - Export to file (binary)");
+	printf("\n\n");
+}
+
+void menu(){
+
 }
