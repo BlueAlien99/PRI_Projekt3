@@ -9,7 +9,7 @@
 #define MAX_FGETS 128
 #define MAX_SCANF 64
 
-void getPath(char*);
+void getPath(char*, _Bool);
 void saveFile(Patient*);
 void readFile(Patient**, Patient**);
 _Bool readChar(FILE*, char);

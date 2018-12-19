@@ -27,7 +27,7 @@ void moveEl();
 void mergeSortWizard();
 Patient* mergeSort();
 Patient* merge();
-void printPatients();
+int printPatients(Patient*, _Bool);
 void populateDB();
 void freeDB();
 

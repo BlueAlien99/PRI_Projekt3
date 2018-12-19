@@ -48,7 +48,7 @@ void menu(Patient **head, Patient **tail){
 				findPatient(*head, 1);
 				break;
 			case 2:
-				printPatients(*head);
+				printPatients(*head, 1);
 				break;
 			case 3:
 				mergeSortWizard(head, tail);

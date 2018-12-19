@@ -1,9 +1,13 @@
 #include "../include/IOHandler.h"
 
-void getPath(char path[]){
+void getPath(char path[], _Bool bin){
 	_Bool clutter = 0;
 	printf("\nSpecify path to a file (64-char limit)...\n");
-	printf("<Press 'Enter' for ./database.txt>\n");
+	if(!bin){
+		printf("<Press 'Enter' for ./database.txt>\n");
+	} else{
+		printf("<Press 'Enter' for ./databaseBin.txt>\n");
+	}
 	fgets(path, MAX_STR+2, stdin);
 	path[strlen(path)-1] = '\0';
 	if(strlen(path) == MAX_STR){
@@ -11,13 +15,17 @@ void getPath(char path[]){
 	}
 	if(clutter || !strcmp(path, "")){
 		printf("Following a default path...\n");
-		strcpy(path, "database.txt");
+		if(!bin){
+			strcpy(path, "database.txt");
+		} else{
+			strcpy(path, "databaseBin.txt");
+		}
 	}
 }
 
 void saveFile(Patient *head){
 	char path[MAX_STR+2];
-	getPath(path);
+	getPath(path, 0);
 	FILE *file = fopen(path, "w");
 	if(file == NULL){
 		printf("Couldn't create a file!\n\n");
@@ -36,7 +44,7 @@ void saveFile(Patient *head){
 
 void readFile(Patient **head, Patient **tail){
 	char path[MAX_STR+2];
-	getPath(path);
+	getPath(path, 0);
 	FILE *file = fopen(path, "r");
 	if(file == NULL){
 		printf("Couldn't open a file!\n\n");
@@ -78,9 +86,38 @@ _Bool readString(FILE *file, const char str[], char des[]){
 }
 
 void saveFileBin(Patient *head){
-
+	char path[MAX_STR+2];
+	getPath(path, 1);
+	FILE *file = fopen(path, "wb");
+	if(file == NULL){
+		printf("Couldn't create a file!\n\n");
+		return;
+	}
+	while(head != NULL){
+		fwrite(head, sizeof(Patient), 1, file);
+		head = head->next;
+	}
+	fclose(file);
+	printf("Database exported successfully!\n\n");
 }
 
 void readFileBin(Patient **head, Patient **tail){
+	char path[MAX_STR+2];
+	getPath(path, 0);
+	FILE *file = fopen(path, "r");
+	if(file == NULL){
+		printf("Couldn't open a file!\n\n");
+		return;
+	}
 
+	/*char name[MAX_STR+1];
+	char surname[MAX_STR+1];
+	while(!feof(file)){
+		if(readChar(file, '{') && readString(file, K_NAME, name) &&
+			readString(file, K_SURNAME, surname) && readChar(file, '}')){
+			addPatient(head, tail, name, surname);
+		}
+	}*/
+	fclose(file);
+	printf("Database imported successfully!\n\n");
 }

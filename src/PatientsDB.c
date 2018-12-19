@@ -145,19 +145,23 @@ Patient* merge(Patient *left, Patient *right){
 	return list;
 }
 
-void printPatients(Patient *head){
+int printPatients(Patient *head, _Bool info){
 	int count = 0;
 	while(head != NULL){
-		printf("\n%s %s", head->name, head->surname);
+		if(info){
+			printf("\n%s %s", head->name, head->surname);
+		}
 		++count;
 		head = head->next;
 	}
-	if(count == 0){
+	if(info && count == 0){
 		printf("Database is empty!\n\n");
-	} else{
+	}
+	else if(info){
 		printf("\n^^^^^");
 		printf("\nTotal: %d records\n\n", count);
 	}
+	return count;
 }
 
 void populateDB(Patient **head, Patient **tail){
