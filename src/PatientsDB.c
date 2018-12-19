@@ -4,7 +4,15 @@ const char K_NAME[] = "Name";
 const char K_SURNAME[] = "Surname";
 
 void addPatientWizard(Patient **head, Patient **tail){
-	
+	char name[MAX_STR+1];
+	char surname[MAX_STR+1];
+	printf("\nFill out the form to add a new patient...\n");
+	if(!getStringForm(name, "Name") || !getStringForm(surname, "Surname")){
+		printf("Wrong input!\n\n");
+		return;
+	}
+	addPatient(head, tail, name, surname);
+	printf("--Added %s %s!\n\n", name, surname);
 }
 
 void addPatient(Patient **head, Patient **tail, char name[], char surname[]){
@@ -90,7 +98,6 @@ void moveEl(Patient **src, Patient **target, Patient **targetTail){
 void mergeSortWizard(Patient **head, Patient **tail){
 	printf("\nSorting...");
 	*head = mergeSort(*head);
-	*tail = *head;
 	while((*tail)->next != NULL){
 		*tail = (*tail)->next;
 	}

@@ -65,12 +65,14 @@ void menu(Patient **head, Patient **tail){
 			case 8:
 				readFile(head, tail);
 				break;
-			//case 81:
+			case 81:
+				readFileBin(head, tail);
 				break;
 			case 9:
 				saveFile(*head);
 				break;
-			//case 91:
+			case 91:
+				saveFileBin(*head);
 				break;
 			case 123:
 				help();

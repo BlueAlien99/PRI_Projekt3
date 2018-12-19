@@ -76,3 +76,11 @@ _Bool readString(FILE *file, const char str[], char des[]){
 	}
 	return 0;
 }
+
+void saveFileBin(Patient *head){
+
+}
+
+void readFileBin(Patient **head, Patient **tail){
+
+}

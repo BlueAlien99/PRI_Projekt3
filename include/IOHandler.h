@@ -14,5 +14,7 @@ void saveFile(Patient*);
 void readFile(Patient**, Patient**);
 _Bool readChar(FILE*, char);
 _Bool readString(FILE*, const char*, char*);
+void saveFileBin(Patient*);
+void readFileBin(Patient**, Patient**);
 
 #endif

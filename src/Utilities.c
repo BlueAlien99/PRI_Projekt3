@@ -16,6 +16,24 @@ _Bool getString(char str[]){
 		str = "";
 		return 0;
 	}
+	return validateString(str);
+}
+
+_Bool getStringForm(char str[], char form[]){
+	printf("%s: ", form);
+	_Bool ret = getString(str);
+	return ret;
+}
+
+_Bool validateString(char str[]){
+	for(int i = 0; i < strlen(str); ++i){
+		if(!(str[i] >= 'A' && str[i] <= 'Z')
+			&& !(str[i] >= 'a' && str[i] <= 'z')
+			&& !(str[i] >= '0' && str[i] <= '9')){
+			printf("Invalid characters!\n");
+			return 0;
+		}
+	}
 	return 1;
 }
 
