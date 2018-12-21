@@ -72,7 +72,7 @@ _Bool readChar(FILE *file, char c){
 
 _Bool readString(FILE *file, const char str[], char des[]){
 	char fstr[MAX_FGETS];
-	if(fgets(fstr, MAX_FGETS, file) && !strncmp(str, fstr+1, strlen(str)-1)){
+	if(fgets(fstr, MAX_FGETS, file) && !strncmp(str, fstr+1, strlen(str))){
 		char *beg = fstr+strlen(str)+4;
 		char *end = strrchr(fstr, '"');
 		ptrdiff_t len = end-beg;
@@ -103,21 +103,28 @@ void saveFileBin(Patient *head){
 
 void readFileBin(Patient **head, Patient **tail){
 	char path[MAX_STR+2];
-	getPath(path, 0);
-	FILE *file = fopen(path, "r");
+	getPath(path, 1);
+	FILE *file = fopen(path, "rb");
 	if(file == NULL){
 		printf("Couldn't open a file!\n\n");
 		return;
 	}
-
-	/*char name[MAX_STR+1];
-	char surname[MAX_STR+1];
-	while(!feof(file)){
-		if(readChar(file, '{') && readString(file, K_NAME, name) &&
-			readString(file, K_SURNAME, surname) && readChar(file, '}')){
-			addPatient(head, tail, name, surname);
+	fseek(file, 0, SEEK_END);
+	long records = ftell(file) / sizeof(Patient);
+	rewind(file);
+	for(int i = 0; i < records; ++i){
+		Patient *patient = malloc(sizeof(Patient));
+		if(patient == NULL){
+			exit(EXIT_FAILURE);
 		}
-	}*/
+		if(!fread(patient, sizeof(Patient), 1, file)){
+			printf("> Corrupted file!\n");
+			printf("> At least one record couldn't be loaded!\n\n");
+			break;
+		}
+		addPatient(head, tail, patient->name, patient->surname);
+		free(patient);
+	}
 	fclose(file);
 	printf("Database imported successfully!\n\n");
 }
