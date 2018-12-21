@@ -50,6 +50,7 @@ void readFile(Patient **head, Patient **tail){
 		printf("Couldn't open a file!\n\n");
 		return;
 	}
+	_Bool error = 0;
 	char name[MAX_STR+1];
 	char surname[MAX_STR+1];
 	while(!feof(file)){
@@ -57,9 +58,17 @@ void readFile(Patient **head, Patient **tail){
 			readString(file, K_SURNAME, surname) && readChar(file, '}')){
 			addPatient(head, tail, name, surname);
 		}
+		else if(!error){
+			error = 1;
+			printf("> Invalid data!\n");
+		}
 	}
 	fclose(file);
-	printf("Database imported successfully!\n\n");
+	if(!error){
+		printf("Database imported successfully!\n\n");
+	} else{
+		printf("Imported with some errors!\n\n");
+	}
 }
 
 _Bool readChar(FILE *file, char c){
@@ -112,19 +121,25 @@ void readFileBin(Patient **head, Patient **tail){
 	fseek(file, 0, SEEK_END);
 	long records = ftell(file) / sizeof(Patient);
 	rewind(file);
+	_Bool error = 0;
 	for(int i = 0; i < records; ++i){
 		Patient *patient = malloc(sizeof(Patient));
 		if(patient == NULL){
 			exit(EXIT_FAILURE);
 		}
 		if(!fread(patient, sizeof(Patient), 1, file)){
+			error = 1;
 			printf("> Corrupted file!\n");
-			printf("> At least one record couldn't be loaded!\n\n");
+			printf("> At least one record couldn't be loaded!\n");
 			break;
 		}
 		addPatient(head, tail, patient->name, patient->surname);
 		free(patient);
 	}
 	fclose(file);
-	printf("Database imported successfully!\n\n");
+	if(!error){
+		printf("Database imported successfully!\n\n");
+	} else{
+		printf("Imported with some errors!\n\n");
+	}
 }
