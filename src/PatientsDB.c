@@ -2,20 +2,37 @@
 
 const char K_NAME[] = "Name";
 const char K_SURNAME[] = "Surname";
+const char K_PESEL[] = "PESEL";
+const char K_SEX[] = "Sex";
+const char K_STATE[] = "State";
+const char K_VISITS[] = "Visits";
 
 void addPatientWizard(Patient **head, Patient **tail){
+	_Bool error = 0;
 	char name[MAX_STR+1];
 	char surname[MAX_STR+1];
+	int sex;
+	int state = 0;
+	int visits = 0;
 	printf("\nFill out the form to add a new patient...\n");
-	if(!getStringForm(name, "Name") || !getStringForm(surname, "Surname")){
+	if(!getStringForm(name, K_NAME) || !getStringForm(surname, K_SURNAME)){
+		error = 1;
+	}
+	printf(">> Sex: 0 - Male / 1 - Female\n");
+	sex = getIntForm(K_SEX);
+	if(sex != 0 && sex != 1){
+		error = 1;
+	}
+	if(error){
 		printf("Wrong input!\n\n");
 		return;
 	}
-	addPatient(head, tail, name, surname);
-	printf("--Added %s %s!\n\n", name, surname);
+	addPatient(head, tail, name, surname, sex, state, visits);
+	printf("-- Added %s %s!\n\n", name, surname);
 }
 
-void addPatient(Patient **head, Patient **tail, char name[], char surname[]){
+void addPatient(Patient **head, Patient **tail, char name[], char surname[],
+	int sex, int state, int visits){
 	Patient *patient = malloc(sizeof(Patient));
 	if(patient == NULL){
 		exit(EXIT_FAILURE);
@@ -24,6 +41,9 @@ void addPatient(Patient **head, Patient **tail, char name[], char surname[]){
 	patient->next = NULL;
 	strcpy(patient->name, name);
 	strcpy(patient->surname, surname);
+	patient->sex = sex;
+	patient->state = state;
+	patient->visits = visits;
 	if(*tail != NULL){
 		(*tail)->next = patient;
 	}
@@ -45,8 +65,7 @@ Patient* findPatient(Patient *head, _Bool info){
 		if(strcmp(head->surname, surname) == 0
 			&& strcmp(head->name, name) == 0){
 			if(info){
-				printf("placeholder\n");
-				//TODO: print all the info
+				printPatientInfo(head);
 			}
 			return head;
 		}
@@ -54,6 +73,35 @@ Patient* findPatient(Patient *head, _Bool info){
 	}
 	printf("Couldn't find %s %s!\n\n", name, surname);
 	return NULL;
+}
+
+void printPatientInfo(Patient *head){
+	printf("\n");
+	printf("| %s %s\n", head->name, head->surname);
+	switch(head->sex){
+		case MALE:
+			printf("| male\n");
+			break;
+		case FEMALE:
+			printf("| female\n");
+			break;
+		default:
+			printf("| unspecified\n");
+	}
+	switch(head->state){
+		case REGISTERED:
+			printf("| REGISTERED\n");
+			break;
+		case APPOINTMENT:
+			printf("| APPOINTMENT\n");
+			break;
+		case HOSPITAL:
+			printf("| HOSPITAL\n");
+			break;
+		default:
+			printf("| unknown\n");
+	}
+	printf("| %d visits\n\n", head->visits);
 }
 
 void delPatient(Patient **head, Patient **tail){
@@ -147,9 +195,23 @@ Patient* merge(Patient *left, Patient *right){
 
 int printPatients(Patient *head, _Bool info){
 	int count = 0;
+	int spacing = STATE_MAX_LEN+1;
 	while(head != NULL){
 		if(info){
-			printf("\n%s %s", head->name, head->surname);
+			switch(head->state){
+				case REGISTERED:
+					printf("\n%*s  ", spacing, "REGISTERED");
+					break;
+				case APPOINTMENT:
+					printf("\n%*s  ", spacing, "APPOINTMENT");
+					break;
+				case HOSPITAL:
+					printf("\n%*s  ", spacing, "HOSPITAL");
+					break;
+				default:
+					printf("\n%*s  ", spacing, "unknown");
+			}
+			printf("%s %s", head->name, head->surname);
 		}
 		++count;
 		head = head->next;
@@ -158,8 +220,7 @@ int printPatients(Patient *head, _Bool info){
 		printf("Database is empty!\n\n");
 	}
 	else if(info){
-		printf("\n^^^^^");
-		printf("\nTotal: %d records\n\n", count);
+		printf("\n\n%*s  %d records\n\n", spacing, "Total:", count);
 	}
 	return count;
 }
@@ -174,7 +235,10 @@ void populateDB(Patient **head, Patient **tail){
 	for(int i = 0; i < records; ++i){
 		char *name = strGen(3, 8);
 		char *surname = strGen(4, 10);
-		addPatient(head, tail, name, surname);
+		int sex = intGen(0, 1);
+		int state = intGen(0, 2);
+		int visits = intGen(0, 8);
+		addPatient(head, tail, name, surname, sex, state, visits);
 		free(name);
 		free(surname);
 	}

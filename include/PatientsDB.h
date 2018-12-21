@@ -7,21 +7,35 @@
 
 #include "Utilities.h"
 
+#define STATE_MAX_LEN 11
+
 extern const char K_NAME[];
 extern const char K_SURNAME[];
+extern const char K_PESEL[];
+extern const char K_SEX[];
+extern const char K_STATE[];
+extern const char K_VISITS[];
 
 typedef struct Patient Patient;
+
+enum Sex {MALE, FEMALE};
+enum State {REGISTERED, APPOINTMENT, HOSPITAL};
 
 struct Patient{
 	Patient *prev;
 	Patient *next;
 	char name[MAX_STR+1];
 	char surname[MAX_STR+1];
+	char PESEL[PESEL_LEN+1];
+	enum Sex sex;
+	enum State state;
+	uint visits;
 };
 
 void addPatientWizard();
 void addPatient();
 Patient* findPatient(Patient*, _Bool);
+void printPatientInfo(Patient*);
 void delPatient();
 void moveEl();
 void mergeSortWizard();

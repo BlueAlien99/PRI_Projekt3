@@ -49,6 +49,11 @@ int getInt(){
 	return x;
 }
 
+int getIntForm(char form[]){
+	printf("%s: ", form);
+	return getInt();
+}
+
 char* strGen(int min, int max){
 	int l = min + rand() % (max-min+1);
 	char *str = malloc(l+1);
@@ -62,4 +67,8 @@ char* strGen(int min, int max){
 	str[0] = toupper(str[0]);
 	str[l] = '\0';
 	return str;
+}
+
+int intGen(int min, int max){
+	return min + rand() % (max-min+1);
 }
