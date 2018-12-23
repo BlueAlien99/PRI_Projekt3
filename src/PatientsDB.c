@@ -65,6 +65,8 @@ Patient* findPatient(Patient *head, _Bool info){
 		printf("Wrong input!\n\n");
 		return NULL;
 	}
+	upFirstLowRest(name);
+	upFirstLowRest(surname);
 	while(head != NULL){
 		if(strcmp(head->surname, surname) == 0
 			&& strcmp(head->name, name) == 0){
