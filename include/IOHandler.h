@@ -1,6 +1,7 @@
 #ifndef IOHANDLER_H
 #define IOHANDLER_H
 
+#include <limits.h>
 #include <stddef.h>
 
 #include "Utilities.h"
@@ -14,6 +15,7 @@ void saveFile(Patient*);
 void readFile(Patient**, Patient**);
 _Bool readChar(FILE*, char);
 _Bool readString(FILE*, const char*, char*);
+_Bool readInt(FILE*, const char*, int*);
 void saveFileBin(Patient*);
 void readFileBin(Patient**, Patient**);
 

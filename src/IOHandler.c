@@ -56,10 +56,15 @@ void readFile(Patient **head, Patient **tail){
 	_Bool error = 0;
 	char name[MAX_STR+1];
 	char surname[MAX_STR+1];
+	int sex;
+	int state;
+	int visits;
 	while(!feof(file)){
 		if(readChar(file, '{') && readString(file, K_NAME, name) &&
-			readString(file, K_SURNAME, surname) && readChar(file, '}')){
-			addPatient(head, tail, name, surname);
+			readString(file, K_SURNAME, surname) &&
+			readInt(file, K_SEX, &sex) && readInt(file, K_STATE, &state) &&
+			readInt(file, K_VISITS, &visits) && readChar(file, '}')){
+			addPatient(head, tail, name, surname, sex, state, visits);
 		}
 		else if(!error){
 			error = 1;
@@ -95,6 +100,24 @@ _Bool readString(FILE *file, const char str[], char des[]){
 		}
 	}
 	return 0;
+}
+
+_Bool readInt(FILE *file, const char str[], int *n){
+	char num[MAX_STR+1];
+	if(!readString(file, str, num)){
+		return 0;
+	}
+	for(int i = 0; i < strlen(num); ++i){
+		if(num[i] < '0' || num[i] > '9'){
+			return 0;
+		}
+	}
+	long number = strtol(num, NULL, 10);
+	if(number > INT_MAX || number < 0){
+		return 0;
+	}
+	*n = (int)number;
+	return 1;
 }
 
 void saveFileBin(Patient *head){
