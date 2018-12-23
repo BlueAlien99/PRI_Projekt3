@@ -65,7 +65,11 @@ Patient* findPatient(Patient *head, _Bool info){
 		if(strcmp(head->surname, surname) == 0
 			&& strcmp(head->name, name) == 0){
 			if(info){
-				printPatientInfo(head);
+				_Bool back = 0;
+				while(!back){
+					printPatientInfo(head);
+					back = findPatientMenu(head);
+				}
 			}
 			return head;
 		}
@@ -102,6 +106,92 @@ void printPatientInfo(Patient *head){
 			printf("| unknown\n");
 	}
 	printf("| %d visits\n\n", head->visits);
+}
+
+int findPatientMenu(Patient *head){
+	printf("0 - Back\n");
+	if(head->state == REGISTERED){
+		printf("1 - Make an appointment\n");
+		printf("2 - Move to hospital\n");
+		printf("3 - Delete patient\n\n");
+	}
+	else if(head->state == APPOINTMENT){
+		printf("1 - End an appointment\n");
+		printf("2 - Cancel an appointment\n");
+		printf("3 - Move to hospital (and cancel an appointment)\n");
+	}
+	else if(head->state == HOSPITAL){
+		printf("1 - Remove from hospital\n");
+	} else{
+		printf("1 - Register patient\n");
+		printf("2 - Delete patient\n");
+	}
+	_Bool back = 0;
+	char backMsg[] = "\n<-\n<-\n\n";
+	if(head->state == REGISTERED){
+		switch(getInt()){
+			case 0:
+				printf("%s", backMsg);
+				back = 1;
+				break;
+			case 1:
+				head->state = APPOINTMENT;
+				break;
+			case 2:
+				head->state = HOSPITAL;
+				break;
+			//case 3:
+			default:
+				printf("Not available!\n\n");
+		}
+	}
+	else if(head->state == APPOINTMENT){
+		switch(getInt()){
+			case 0:
+				printf("%s", backMsg);
+				back = 1;
+				break;
+			case 1:
+				head->state = REGISTERED;
+				++(head->visits);
+				break;
+			case 2:
+				head->state = REGISTERED;
+				break;
+			case 3:
+				head->state = HOSPITAL;
+				break;
+			default:
+				printf("Not available!\n\n");
+		}
+	}
+	else if(head->state == HOSPITAL){
+		switch(getInt()){
+			case 0:
+				printf("%s", backMsg);
+				back = 1;
+				break;
+			case 1:
+				head->state = REGISTERED;
+				break;
+			default:
+				printf("Not available!\n\n");
+		}
+	} else{
+		switch(getInt()){
+			case 0:
+				printf("%s", backMsg);
+				back = 1;
+				break;
+			case 1:
+				head->state = REGISTERED;
+				break;
+			//case 2:
+			default:
+				printf("Not available!\n\n");
+		}
+	}
+	return back;
 }
 
 void delPatient(Patient **head, Patient **tail){

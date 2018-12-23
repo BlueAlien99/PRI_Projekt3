@@ -36,6 +36,7 @@ void addPatientWizard();
 void addPatient();
 Patient* findPatient(Patient*, _Bool);
 void printPatientInfo(Patient*);
+int findPatientMenu(Patient*);
 void delPatient();
 void moveEl();
 void mergeSortWizard();

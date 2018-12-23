@@ -35,6 +35,9 @@ void saveFile(Patient *head){
 		fprintf(file, "{\n");
 		fprintf(file, "\"%s\":\"%s\";\n", K_NAME, head->name);
 		fprintf(file, "\"%s\":\"%s\";\n", K_SURNAME, head->surname);
+		fprintf(file, "\"%s\":\"%d\";\n", K_SEX, head->sex);
+		fprintf(file, "\"%s\":\"%d\";\n", K_STATE, head->state);
+		fprintf(file, "\"%s\":\"%d\";\n", K_VISITS, head->visits);
 		fprintf(file, "}\n");
 		head = head->next;
 	}
