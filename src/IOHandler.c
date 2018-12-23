@@ -102,7 +102,9 @@ _Bool readString(FILE *file, const char str[], char des[]){
 		if(len > 0 && len <= MAX_STR){
 			strncpy(des, beg, len);
 			des[len] = '\0';
-			return 1;
+			if(validateString(des)){
+				return 1;
+			}
 		}
 	}
 	return 0;

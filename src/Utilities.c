@@ -30,7 +30,7 @@ _Bool validateString(char str[]){
 		if(!(str[i] >= 'A' && str[i] <= 'Z')
 			&& !(str[i] >= 'a' && str[i] <= 'z')
 			&& !(str[i] >= '0' && str[i] <= '9')){
-			printf("Invalid characters!\n");
+			printf("> Invalid characters!\n");
 			return 0;
 		}
 	}
