@@ -6,6 +6,8 @@ const char K_PESEL[] = "PESEL";
 const char K_SEX[] = "Sex";
 const char K_STATE[] = "State";
 const char K_VISITS[] = "Visits";
+const int E_SEX = 3;
+const int E_STATE = 4;
 
 void addPatientWizard(Patient **head, Patient **tail){
 	_Bool error = 0;
@@ -319,6 +321,23 @@ int printPatients(Patient *head, _Bool info){
 		printf("\n\n%*s  %d records\n\n", spacing, "Total:", count);
 	}
 	return count;
+}
+
+void getStats(Patient *head){
+	const int NOFSTATS = E_STATE + 3;
+	uint (*stats)[E_SEX] = calloc(NOFSTATS, sizeof(stats));
+	if(stats == NULL){
+		exit(EXIT_FAILURE);
+	}
+	while(head != NULL){
+		int col = max(head->sex, E_SEX-1);
+		++stats[col][max(head->state, E_STATE-1)];
+		stats[col][E_STATE] += head->visits;
+		stats[col][E_STATE+1] = max(stats[col][E_STATE+1], head->visits);
+		stats[col][E_STATE+2] = min(stats[col][E_STATE+2], head->visits);
+		head = head->next;
+	}
+	free(stats);
 }
 
 void populateDB(Patient **head, Patient **tail){

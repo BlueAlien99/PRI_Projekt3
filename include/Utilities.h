@@ -12,6 +12,7 @@
 #define MLEN(S) LEN(S)
 
 typedef unsigned int uint;
+typedef long long llong;
 
 _Bool clearBuffer();
 _Bool getString();
@@ -22,5 +23,7 @@ int getInt();
 int getIntForm();
 char* strGen();
 int intGen();
+int max();
+int min();
 
 #endif

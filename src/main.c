@@ -29,6 +29,7 @@ void help(){
 	printf("\n3  - Sort database");
 	printf("\n4  - Add new patient");
 	printf("\n5  - Delete existing patient");
+	printf("\n6  - Show statistics");
 	printf("\n7  - Populate database with random data");
 	printf("\n8  - Import from file");
 	printf("\n81 - Import from file (binary)");
@@ -58,6 +59,9 @@ void menu(Patient **head, Patient **tail){
 				break;
 			case 5:
 				delPatient(head, tail);
+				break;
+			case 6:
+				getStats(*head);
 				break;
 			case 7:
 				populateDB(head, tail);

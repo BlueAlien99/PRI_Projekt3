@@ -81,3 +81,11 @@ char* strGen(int min, int max){
 int intGen(int min, int max){
 	return min + rand() % (max-min+1);
 }
+
+int max(int a, int b){
+	return a > b ? a : b;
+}
+
+int min(int a, int b){
+	return a < b ? a : b;
+}

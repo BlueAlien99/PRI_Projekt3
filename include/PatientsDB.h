@@ -15,6 +15,8 @@ extern const char K_PESEL[];
 extern const char K_SEX[];
 extern const char K_STATE[];
 extern const char K_VISITS[];
+extern const int E_SEX;
+extern const int E_STATE;
 
 typedef struct Patient Patient;
 
@@ -43,6 +45,7 @@ void mergeSortWizard();
 Patient* mergeSort();
 Patient* merge();
 int printPatients(Patient*, _Bool);
+void getStats();
 void populateDB();
 void freeDB();
 
