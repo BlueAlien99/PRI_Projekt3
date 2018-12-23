@@ -165,7 +165,8 @@ void readFileBin(Patient **head, Patient **tail){
 			printf("> At least one record couldn't be loaded!\n");
 			break;
 		}
-		addPatient(head, tail, patient->name, patient->surname);
+		addPatient(head, tail, patient->name, patient->surname, patient->sex,
+			patient->state, patient->visits);
 		free(patient);
 	}
 	fclose(file);
