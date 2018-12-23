@@ -54,19 +54,20 @@ void readFile(Patient **head, Patient **tail){
 		return;
 	}
 	_Bool error = 0;
+	char readchar;
 	char name[MAX_STR+1];
 	char surname[MAX_STR+1];
 	int sex;
 	int state;
 	int visits;
 	while(!feof(file)){
-		if(readChar(file, '{') && readString(file, K_NAME, name) &&
+		if(readChar(file, '{', &readchar) && readString(file, K_NAME, name) &&
 			readString(file, K_SURNAME, surname) &&
 			readInt(file, K_SEX, &sex) && readInt(file, K_STATE, &state) &&
-			readInt(file, K_VISITS, &visits) && readChar(file, '}')){
+			readInt(file, K_VISITS, &visits) && readChar(file, '}', &readchar)){
 			addPatient(head, tail, name, surname, sex, state, visits);
 		}
-		else if(!error){
+		else if(!error && readchar != '\n'){
 			error = 1;
 			printf("> Invalid data!\n");
 		}
@@ -79,9 +80,14 @@ void readFile(Patient **head, Patient **tail){
 	}
 }
 
-_Bool readChar(FILE *file, char c){
+_Bool readChar(FILE *file, char c, char *readchar){
 	char fstr[MAX_FGETS];
-	if(fgets(fstr, MAX_FGETS, file) && fstr[0] == c){
+	if(!fgets(fstr, MAX_FGETS, file)){
+		*readchar = '\n';
+		return 0;
+	}
+	*readchar = fstr[0];
+	if(fstr[0] == c){
 		return 1;
 	}
 	return 0;

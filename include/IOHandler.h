@@ -13,7 +13,7 @@
 void getPath(char*, _Bool);
 void saveFile(Patient*);
 void readFile(Patient**, Patient**);
-_Bool readChar(FILE*, char);
+_Bool readChar(FILE*, char, char*);
 _Bool readString(FILE*, const char*, char*);
 _Bool readInt(FILE*, const char*, int*);
 void saveFileBin(Patient*);
