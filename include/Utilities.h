@@ -17,6 +17,7 @@ _Bool clearBuffer();
 _Bool getString();
 _Bool getStringForm();
 _Bool validateString(char*);
+void upFirstLowRest(char*);
 int getInt();
 int getIntForm();
 char* strGen();

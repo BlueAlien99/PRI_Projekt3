@@ -18,10 +18,12 @@ void addPatientWizard(Patient **head, Patient **tail){
 	if(!getStringForm(name, K_NAME) || !getStringForm(surname, K_SURNAME)){
 		error = 1;
 	}
-	printf(">> Sex: 0 - Male / 1 - Female\n");
-	sex = getIntForm(K_SEX);
-	if(sex != 0 && sex != 1){
-		error = 1;
+	if(!error){
+		printf(">> Sex: 0 - Male / 1 - Female\n");
+		sex = getIntForm(K_SEX);
+		if(sex != 0 && sex != 1){
+			error = 1;
+		}
 	}
 	if(error){
 		printf("Wrong input!\n\n");
@@ -39,7 +41,9 @@ void addPatient(Patient **head, Patient **tail, char name[], char surname[],
 	}
 	patient->prev = *tail;
 	patient->next = NULL;
+	upFirstLowRest(name);
 	strcpy(patient->name, name);
+	upFirstLowRest(surname);
 	strcpy(patient->surname, surname);
 	patient->sex = sex;
 	patient->state = state;

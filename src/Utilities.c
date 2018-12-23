@@ -37,6 +37,15 @@ _Bool validateString(char str[]){
 	return 1;
 }
 
+void upFirstLowRest(char str[]){
+	if(strlen(str) > 0){
+		str[0] = toupper(str[0]);
+	}
+	for(int i = 1; i < strlen(str); ++i){
+		str[i] = tolower(str[i]);
+	}
+}
+
 int getInt(){
 	int x;
 	if(scanf("%d", &x) != 1){
