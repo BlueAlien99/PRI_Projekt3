@@ -9,6 +9,9 @@
 #include "Utilities.h"
 
 #define STATE_MAX_LEN 11
+#define E_SEX 3
+#define E_STATE 4
+#define NOFSTATS E_STATE+4
 
 extern const char K_NAME[];
 extern const char K_SURNAME[];
@@ -16,8 +19,6 @@ extern const char K_PESEL[];
 extern const char K_SEX[];
 extern const char K_STATE[];
 extern const char K_VISITS[];
-extern const int E_SEX;
-extern const int E_STATE;
 
 typedef struct Patient Patient;
 
@@ -47,6 +48,8 @@ Patient* mergeSort();
 Patient* merge();
 int printPatients(Patient*, _Bool);
 void getStats();
+void printStats();
+void printStatsLine();
 void populateDB();
 void freeDB();
 

@@ -6,8 +6,6 @@ const char K_PESEL[] = "PESEL";
 const char K_SEX[] = "Sex";
 const char K_STATE[] = "State";
 const char K_VISITS[] = "Visits";
-const int E_SEX = 3;
-const int E_STATE = 4;
 
 void addPatientWizard(Patient **head, Patient **tail){
 	_Bool error = 0;
@@ -324,7 +322,6 @@ int printPatients(Patient *head, _Bool info){
 }
 
 void getStats(Patient *head){
-	const int NOFSTATS = E_STATE + 4;
 	uint stats[E_SEX+1][NOFSTATS];
 	for(int i = 0; i < NOFSTATS; ++i){
 		for(int j = 0; j < E_SEX+1; ++j){
@@ -347,7 +344,7 @@ void getStats(Patient *head){
 			stats[i][NOFSTATS-1] = 0;
 		}
 	}
-	for(int i = 0; i < E_STATE+1; ++i){
+	for(int i = 0; i < E_STATE+2; ++i){
 		for(int j = 0; j < E_SEX; ++j){
 			stats[E_SEX][i] += stats[j][i];
 		}
@@ -359,25 +356,35 @@ void getStats(Patient *head){
 	}
 	double avgvisit[E_SEX+1];
 	for(int i = 0; i < E_SEX+1; ++i){
-		if(stats[i][E_STATE+1] != 0){
+		if(stats[i][E_STATE] != 0){
 			avgvisit[i] = (double)stats[i][E_STATE+1]/stats[i][E_STATE];
 		} else{
 			avgvisit[i] = 0;
 		}
 	}
-	stats[E_SEX][E_STATE+1] = max(stats[0][E_STATE+1], max(stats[1][E_STATE+1], stats[2][E_STATE+1]));
-	stats[E_SEX][E_STATE+2] = min(stats[0][E_STATE+2], min(stats[1][E_STATE+2], stats[2][E_STATE+2]));
-	printf("\n            |   male  |  female | unknown | overall");
-	printf("\n        REG | %7d | %7d | %7d | %7d", stats[0][0], stats[1][0], stats[2][0], stats[E_SEX][0]);
-	printf("\n        APP | %7d | %7d | %7d | %7d", stats[0][1], stats[1][1], stats[2][1], stats[E_SEX][1]);
-	printf("\n        HOS | %7d | %7d | %7d | %7d", stats[0][2], stats[1][2], stats[2][2], stats[E_SEX][2]);
-	printf("\n        unk | %7d | %7d | %7d | %7d", stats[0][3], stats[1][3], stats[2][3], stats[E_SEX][3]);
-	printf("\n     >> SUM | %7d | %7d | %7d | %7d", stats[0][E_STATE], stats[1][E_STATE], stats[2][E_STATE], stats[E_SEX][E_STATE]);
+	stats[E_SEX][E_STATE+2] = max(stats[0][E_STATE+2], max(stats[1][E_STATE+2], stats[2][E_STATE+2]));
+	stats[E_SEX][E_STATE+3] = min(stats[0][E_STATE+3], min(stats[1][E_STATE+3], stats[2][E_STATE+3]));
+	printStats(stats, avgvisit);
+}
+
+void printStats(uint stats[][NOFSTATS], double avgvisit[]){
+	printf("\n            |   male  |  female | unknown | overall ");
+	printStatsLine("       REG", stats, 0);
+	printStatsLine("       APP", stats, 1);
+	printStatsLine("       HOS", stats, 2);
+	printStatsLine("       unk", stats, 3);
+	printStatsLine("    >> SUM", stats, E_STATE);
 	printf("\n");
-	printf("\n Avg visits | %7.2lf | %7.2lf | %7.2lf | %7.2lf", avgvisit[0], avgvisit[1], avgvisit[2], avgvisit[3]);
-	printf("\n Max visits | %7d | %7d | %7d | %7d", stats[0][E_STATE+2], stats[1][E_STATE+2], stats[2][E_STATE+2], stats[E_SEX][E_STATE+2]);
-	printf("\n Min visits | %7d | %7d | %7d | %7d", stats[0][E_STATE+3], stats[1][E_STATE+3], stats[2][E_STATE+3], stats[E_SEX][E_STATE+3]);
+	printf("\n Avg visits | %7.2lf | %7.2lf | %7.2lf | %7.2lf",
+		avgvisit[0], avgvisit[1], avgvisit[2], avgvisit[3]);
+	printStatsLine("Max visits", stats, E_STATE+2);
+	printStatsLine("Min visits", stats, E_STATE+3);
 	printf("\n\n");
+}
+
+void printStatsLine(char header[], uint stats[][NOFSTATS], int i){
+	printf("\n %s | %7d | %7d | %7d | %7d", header,
+		stats[0][i], stats[1][i], stats[2][i], stats[E_SEX][i]);
 }
 
 void populateDB(Patient **head, Patient **tail){
