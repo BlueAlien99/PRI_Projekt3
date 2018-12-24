@@ -124,19 +124,20 @@ int findPatientMenu(Patient **m_head, Patient **m_tail, Patient *head){
 	if(head->state == REGISTERED){
 		printf("1 - Make an appointment\n");
 		printf("2 - Move to hospital\n");
-		printf("3 - Delete patient\n\n");
+		printf("3 - Delete patient\n");
 	}
 	else if(head->state == APPOINTMENT){
 		printf("1 - End an appointment\n");
 		printf("2 - Cancel an appointment\n");
-		printf("3 - Move to hospital (and cancel an appointment)\n\n");
+		printf("3 - Move to hospital (and cancel an appointment)\n");
 	}
 	else if(head->state == HOSPITAL){
-		printf("1 - Remove from hospital\n\n");
+		printf("1 - Remove from hospital\n");
 	} else{
 		printf("1 - Register patient\n");
-		printf("2 - Delete patient\n\n");
+		printf("2 - Delete patient\n");
 	}
+	printf("9 - Verify PESEL\n\n");
 	_Bool back = 0;
 	char backMsg[] = "\n<-\n<-\n\n";
 	char backDelMsg[] = "<-\n<-\n\n";
@@ -156,6 +157,9 @@ int findPatientMenu(Patient **m_head, Patient **m_tail, Patient *head){
 				delPatient(m_head, m_tail, head);
 				printf("%s", backDelMsg);
 				back = 1;
+				break;
+			case 9:
+				verifyPesel(head->PESEL, head->sex);
 				break;
 			default:
 				printf("Not available!\n\n");
@@ -177,6 +181,9 @@ int findPatientMenu(Patient **m_head, Patient **m_tail, Patient *head){
 			case 3:
 				head->state = HOSPITAL;
 				break;
+			case 9:
+				verifyPesel(head->PESEL, head->sex);
+				break;
 			default:
 				printf("Not available!\n\n");
 		}
@@ -189,6 +196,9 @@ int findPatientMenu(Patient **m_head, Patient **m_tail, Patient *head){
 				break;
 			case 1:
 				head->state = REGISTERED;
+				break;
+			case 9:
+				verifyPesel(head->PESEL, head->sex);
 				break;
 			default:
 				printf("Not available!\n\n");
@@ -206,6 +216,9 @@ int findPatientMenu(Patient **m_head, Patient **m_tail, Patient *head){
 				delPatient(m_head, m_tail, head);
 				printf("%s", backDelMsg);
 				back = 1;
+				break;
+			case 9:
+				verifyPesel(head->PESEL, head->sex);
 				break;
 			default:
 				printf("Not available!\n\n");

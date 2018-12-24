@@ -18,6 +18,7 @@ _Bool clearBuffer();
 _Bool getString();
 _Bool getStringForm();
 _Bool validateString(char*);
+_Bool verifyPesel(char*, int);
 void upFirstLowRest(char*);
 int getInt();
 int getIntForm();

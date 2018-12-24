@@ -37,6 +37,38 @@ _Bool validateString(char str[]){
 	return 1;
 }
 
+_Bool verifyPesel(char p[], int sex){
+	if(strlen(p) < PESEL_LEN){
+		printf("\n> Too short!\n");
+		return 0;
+	}
+	else if(strlen(p) > PESEL_LEN){
+		printf("\n> Too long!\n");
+		return 0;
+	}
+	if((p[9]-'0'+1)%2 != sex){
+		printf("\n> Wrong sex!\n");
+		return 0;
+	}
+	for(int i = 0; i < strlen(p); ++i){
+		if(p[i] < '0' || p[i] > '9'){
+			printf("\n> Invalid characters!\n");
+			return 0;
+		}
+	}
+	int ctrl = 0;
+	int w[] = {9, 7, 3, 1, 9, 7, 3, 1, 9, 7};
+	for(int i = 0; i < PESEL_LEN-1; ++i){
+		ctrl += (p[i]-'0')*w[i];
+	}
+	if(ctrl%10 != (p[10]-'0')){
+		printf("\n> Checksum error!\n");
+		return 0;
+	}
+	printf("\n> OK!\n");
+	return 1;
+}
+
 void upFirstLowRest(char str[]){
 	if(strlen(str) > 0){
 		str[0] = toupper(str[0]);
