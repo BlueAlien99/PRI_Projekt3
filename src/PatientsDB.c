@@ -57,7 +57,8 @@ void addPatient(Patient **head, Patient **tail, char name[], char surname[],
 	}
 }
 
-Patient* findPatient(Patient *head, _Bool info){
+Patient* findPatient(Patient **m_head, Patient **m_tail, _Bool info){
+	Patient *head = *m_head;
 	char name[MAX_STR+1];
 	char surname[MAX_STR+1];
 	printf("\nEnter name and surname of a patient...\n");
@@ -74,7 +75,7 @@ Patient* findPatient(Patient *head, _Bool info){
 				_Bool back = 0;
 				while(!back){
 					printPatientInfo(head);
-					back = findPatientMenu(head);
+					back = findPatientMenu(m_head, m_tail, head);
 				}
 			}
 			return head;
@@ -114,7 +115,7 @@ void printPatientInfo(Patient *head){
 	printf("| %d visits\n\n", head->visits);
 }
 
-int findPatientMenu(Patient *head){
+int findPatientMenu(Patient **m_head, Patient **m_tail, Patient *head){
 	printf("0 - Back\n");
 	if(head->state == REGISTERED){
 		printf("1 - Make an appointment\n");
@@ -124,16 +125,17 @@ int findPatientMenu(Patient *head){
 	else if(head->state == APPOINTMENT){
 		printf("1 - End an appointment\n");
 		printf("2 - Cancel an appointment\n");
-		printf("3 - Move to hospital (and cancel an appointment)\n");
+		printf("3 - Move to hospital (and cancel an appointment)\n\n");
 	}
 	else if(head->state == HOSPITAL){
-		printf("1 - Remove from hospital\n");
+		printf("1 - Remove from hospital\n\n");
 	} else{
 		printf("1 - Register patient\n");
-		printf("2 - Delete patient\n");
+		printf("2 - Delete patient\n\n");
 	}
 	_Bool back = 0;
 	char backMsg[] = "\n<-\n<-\n\n";
+	char backDelMsg[] = "<-\n<-\n\n";
 	if(head->state == REGISTERED){
 		switch(getInt()){
 			case 0:
@@ -146,7 +148,11 @@ int findPatientMenu(Patient *head){
 			case 2:
 				head->state = HOSPITAL;
 				break;
-			//case 3:
+			case 3:
+				delPatient(m_head, m_tail, head);
+				printf("%s", backDelMsg);
+				back = 1;
+				break;
 			default:
 				printf("Not available!\n\n");
 		}
@@ -192,7 +198,11 @@ int findPatientMenu(Patient *head){
 			case 1:
 				head->state = REGISTERED;
 				break;
-			//case 2:
+			case 2:
+				delPatient(m_head, m_tail, head);
+				printf("%s", backDelMsg);
+				back = 1;
+				break;
 			default:
 				printf("Not available!\n\n");
 		}
@@ -200,8 +210,13 @@ int findPatientMenu(Patient *head){
 	return back;
 }
 
-void delPatient(Patient **head, Patient **tail){
-	Patient *del = findPatient(*head, 0);
+void delPatient(Patient **head, Patient **tail, Patient *el){
+	Patient *del = NULL;
+	if(el == NULL){
+		del = findPatient(head, tail, 0);
+	} else{
+		del = el;
+	}
 	if(del == NULL){
 		return;
 	}

@@ -46,7 +46,7 @@ void menu(Patient **head, Patient **tail){
 				end = 1;
 				break;
 			case 1:
-				findPatient(*head, 1);
+				findPatient(head, tail, 1);
 				break;
 			case 2:
 				printPatients(*head, 1);
@@ -58,7 +58,7 @@ void menu(Patient **head, Patient **tail){
 				addPatientWizard(head, tail);
 				break;
 			case 5:
-				delPatient(head, tail);
+				delPatient(head, tail, NULL);
 				break;
 			case 6:
 				getStats(*head);

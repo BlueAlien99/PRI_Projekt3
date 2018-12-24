@@ -38,9 +38,9 @@ struct Patient{
 
 void addPatientWizard();
 void addPatient();
-Patient* findPatient(Patient*, _Bool);
+Patient* findPatient(Patient**, Patient**, _Bool);
 void printPatientInfo(Patient*);
-int findPatientMenu(Patient*);
+int findPatientMenu(Patient**, Patient**, Patient*);
 void delPatient();
 void moveEl();
 void mergeSortWizard();
