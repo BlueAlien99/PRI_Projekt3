@@ -22,6 +22,7 @@ void upFirstLowRest(char*);
 int getInt();
 int getIntForm();
 char* strGen();
+char* numGen();
 int intGen();
 int max();
 int min();

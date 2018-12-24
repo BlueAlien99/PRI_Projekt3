@@ -78,6 +78,19 @@ char* strGen(int min, int max){
 	return str;
 }
 
+char* numGen(int l){
+	char *str = malloc(l+1);
+	if(str == NULL){
+		exit(EXIT_FAILURE);
+	}
+	for(int i = 0; i < l; ++i){
+		int c = '0' + rand() % ('9'-'0'+1);
+		str[i] = c;
+	}
+	str[l] = '\0';
+	return str;
+}
+
 int intGen(int min, int max){
 	return min + rand() % (max-min+1);
 }

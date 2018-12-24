@@ -30,7 +30,7 @@ struct Patient{
 	Patient *next;
 	char name[MAX_STR+1];
 	char surname[MAX_STR+1];
-	char PESEL[PESEL_LEN+1];
+	char PESEL[MAX_STR+1];
 	enum Sex sex;
 	enum State state;
 	uint visits;

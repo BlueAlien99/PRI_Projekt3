@@ -11,11 +11,13 @@ void addPatientWizard(Patient **head, Patient **tail){
 	_Bool error = 0;
 	char name[MAX_STR+1];
 	char surname[MAX_STR+1];
+	char pesel[MAX_STR+1];
 	int sex;
 	int state = 0;
 	int visits = 0;
 	printf("\nFill out the form to add a new patient...\n");
-	if(!getStringForm(name, K_NAME) || !getStringForm(surname, K_SURNAME)){
+	if(!getStringForm(name, K_NAME) || !getStringForm(surname, K_SURNAME) ||
+		!getStringForm(pesel, K_PESEL)){
 		error = 1;
 	}
 	if(!error){
@@ -29,12 +31,12 @@ void addPatientWizard(Patient **head, Patient **tail){
 		printf("Wrong input!\n\n");
 		return;
 	}
-	addPatient(head, tail, name, surname, sex, state, visits);
+	addPatient(head, tail, name, surname, pesel, sex, state, visits);
 	printf("-- Added %s %s!\n\n", name, surname);
 }
 
 void addPatient(Patient **head, Patient **tail, char name[], char surname[],
-	int sex, int state, int visits){
+	char pesel[], int sex, int state, int visits){
 	Patient *patient = malloc(sizeof(Patient));
 	if(patient == NULL){
 		exit(EXIT_FAILURE);
@@ -45,6 +47,7 @@ void addPatient(Patient **head, Patient **tail, char name[], char surname[],
 	strcpy(patient->name, name);
 	upFirstLowRest(surname);
 	strcpy(patient->surname, surname);
+	strcpy(patient->PESEL, pesel);
 	patient->sex = sex;
 	patient->state = state;
 	patient->visits = visits;
@@ -89,6 +92,7 @@ Patient* findPatient(Patient **m_head, Patient **m_tail, _Bool info){
 void printPatientInfo(Patient *head){
 	printf("\n");
 	printf("| %s %s\n", head->name, head->surname);
+	printf("| %s\n", head->PESEL);
 	switch(head->sex){
 		case MALE:
 			printf("| male\n");
@@ -412,12 +416,14 @@ void populateDB(Patient **head, Patient **tail){
 	for(int i = 0; i < records; ++i){
 		char *name = strGen(3, 8);
 		char *surname = strGen(4, 10);
+		char *pesel = numGen(11);
 		int sex = intGen(0, 1);
 		int state = intGen(0, 2);
 		int visits = intGen(0, 8);
-		addPatient(head, tail, name, surname, sex, state, visits);
+		addPatient(head, tail, name, surname, pesel, sex, state, visits);
 		free(name);
 		free(surname);
+		free(pesel);
 	}
 	printf("Generated %d records!\n\n", records);
 }

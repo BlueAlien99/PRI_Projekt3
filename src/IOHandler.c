@@ -35,6 +35,7 @@ void saveFile(Patient *head){
 		fprintf(file, "{\n");
 		fprintf(file, "\"%s\":\"%s\";\n", K_NAME, head->name);
 		fprintf(file, "\"%s\":\"%s\";\n", K_SURNAME, head->surname);
+		fprintf(file, "\"%s\":\"%s\";\n", K_PESEL, head->PESEL);
 		fprintf(file, "\"%s\":\"%d\";\n", K_SEX, head->sex);
 		fprintf(file, "\"%s\":\"%d\";\n", K_STATE, head->state);
 		fprintf(file, "\"%s\":\"%d\";\n", K_VISITS, head->visits);
@@ -57,15 +58,17 @@ void readFile(Patient **head, Patient **tail){
 	char readchar;
 	char name[MAX_STR+1];
 	char surname[MAX_STR+1];
+	char pesel[MAX_STR+1];
 	int sex;
 	int state;
 	int visits;
 	while(!feof(file)){
 		if(readChar(file, '{', &readchar) && readString(file, K_NAME, name) &&
 			readString(file, K_SURNAME, surname) &&
-			readInt(file, K_SEX, &sex) && readInt(file, K_STATE, &state) &&
+			readString(file, K_PESEL, pesel) && readInt(file, K_SEX, &sex) &&
+			readInt(file, K_STATE, &state) &&
 			readInt(file, K_VISITS, &visits) && readChar(file, '}', &readchar)){
-			addPatient(head, tail, name, surname, sex, state, visits);
+			addPatient(head, tail, name, surname, pesel, sex, state, visits);
 		}
 		else if(!error && readchar != '\n'){
 			error = 1;
@@ -167,8 +170,8 @@ void readFileBin(Patient **head, Patient **tail){
 			printf("> At least one record couldn't be loaded!\n");
 			break;
 		}
-		addPatient(head, tail, patient->name, patient->surname, patient->sex,
-			patient->state, patient->visits);
+		addPatient(head, tail, patient->name, patient->surname, patient->PESEL,
+			patient->sex, patient->state, patient->visits);
 		free(patient);
 	}
 	fclose(file);
