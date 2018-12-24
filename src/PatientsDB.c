@@ -324,20 +324,60 @@ int printPatients(Patient *head, _Bool info){
 }
 
 void getStats(Patient *head){
-	const int NOFSTATS = E_STATE + 3;
-	uint (*stats)[E_SEX] = calloc(NOFSTATS, sizeof(stats));
-	if(stats == NULL){
-		exit(EXIT_FAILURE);
+	const int NOFSTATS = E_STATE + 4;
+	uint stats[E_SEX+1][NOFSTATS];
+	for(int i = 0; i < NOFSTATS; ++i){
+		for(int j = 0; j < E_SEX+1; ++j){
+			stats[j][i] = 0;
+			if(i == NOFSTATS-1){
+				stats[j][i] = INT_MAX;
+			}
+		}
 	}
 	while(head != NULL){
-		int col = max(head->sex, E_SEX-1);
-		++stats[col][max(head->state, E_STATE-1)];
-		stats[col][E_STATE] += head->visits;
-		stats[col][E_STATE+1] = max(stats[col][E_STATE+1], head->visits);
-		stats[col][E_STATE+2] = min(stats[col][E_STATE+2], head->visits);
+		int col = min(head->sex, E_SEX-1);
+		++stats[col][min(head->state, E_STATE-1)];
+		stats[col][E_STATE+1] += head->visits;
+		stats[col][E_STATE+2] = max(stats[col][E_STATE+2], head->visits);
+		stats[col][E_STATE+3] = min(stats[col][E_STATE+3], head->visits);
 		head = head->next;
 	}
-	free(stats);
+	for(int i = 0; i < E_SEX+1; ++i){
+		if(stats[i][NOFSTATS-1] == INT_MAX){
+			stats[i][NOFSTATS-1] = 0;
+		}
+	}
+	for(int i = 0; i < E_STATE+1; ++i){
+		for(int j = 0; j < E_SEX; ++j){
+			stats[E_SEX][i] += stats[j][i];
+		}
+	}
+	for(int i = 0; i < E_SEX+1; ++i){
+		for(int j = 0; j < E_STATE; ++j){
+			stats[i][E_STATE] += stats[i][j];
+		}
+	}
+	double avgvisit[E_SEX+1];
+	for(int i = 0; i < E_SEX+1; ++i){
+		if(stats[i][E_STATE+1] != 0){
+			avgvisit[i] = (double)stats[i][E_STATE+1]/stats[i][E_STATE];
+		} else{
+			avgvisit[i] = 0;
+		}
+	}
+	stats[E_SEX][E_STATE+1] = max(stats[0][E_STATE+1], max(stats[1][E_STATE+1], stats[2][E_STATE+1]));
+	stats[E_SEX][E_STATE+2] = min(stats[0][E_STATE+2], min(stats[1][E_STATE+2], stats[2][E_STATE+2]));
+	printf("\n            |   male  |  female | unknown | overall");
+	printf("\n        REG | %7d | %7d | %7d | %7d", stats[0][0], stats[1][0], stats[2][0], stats[E_SEX][0]);
+	printf("\n        APP | %7d | %7d | %7d | %7d", stats[0][1], stats[1][1], stats[2][1], stats[E_SEX][1]);
+	printf("\n        HOS | %7d | %7d | %7d | %7d", stats[0][2], stats[1][2], stats[2][2], stats[E_SEX][2]);
+	printf("\n        unk | %7d | %7d | %7d | %7d", stats[0][3], stats[1][3], stats[2][3], stats[E_SEX][3]);
+	printf("\n     >> SUM | %7d | %7d | %7d | %7d", stats[0][E_STATE], stats[1][E_STATE], stats[2][E_STATE], stats[E_SEX][E_STATE]);
+	printf("\n");
+	printf("\n Avg visits | %7.2lf | %7.2lf | %7.2lf | %7.2lf", avgvisit[0], avgvisit[1], avgvisit[2], avgvisit[3]);
+	printf("\n Max visits | %7d | %7d | %7d | %7d", stats[0][E_STATE+2], stats[1][E_STATE+2], stats[2][E_STATE+2], stats[E_SEX][E_STATE+2]);
+	printf("\n Min visits | %7d | %7d | %7d | %7d", stats[0][E_STATE+3], stats[1][E_STATE+3], stats[2][E_STATE+3], stats[E_SEX][E_STATE+3]);
+	printf("\n\n");
 }
 
 void populateDB(Patient **head, Patient **tail){

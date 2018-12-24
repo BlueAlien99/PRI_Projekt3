@@ -1,6 +1,7 @@
 #ifndef PATIENTSDB_H
 #define PATIENTSDB_H
 
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
