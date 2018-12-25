@@ -64,16 +64,22 @@ Patient* findPatient(Patient **m_head, Patient **m_tail, _Bool info){
 	Patient *head = *m_head;
 	char name[MAX_STR+1];
 	char surname[MAX_STR+1];
-	printf("\nEnter name and surname of a patient...\n");
+	printf("\n1. Enter name and surname of a patient...");
+	printf("\n2. Type 'PESEL' followed by PESEL of a patient...\n");
 	if(!getString(name) || !getString(surname)){
 		printf("Wrong input!\n\n");
 		return NULL;
 	}
-	upFirstLowRest(name);
-	upFirstLowRest(surname);
+	_Bool pesel = 1;
+	if(strcmp(name, "PESEL") != 0){
+		pesel = 0;
+		upFirstLowRest(name);
+		upFirstLowRest(surname);
+	}
 	while(head != NULL){
-		if(strcmp(head->surname, surname) == 0
-			&& strcmp(head->name, name) == 0){
+		if((!pesel && !strcmp(head->surname, surname) &&
+			!strcmp(head->name, name)) ||
+			(pesel && !strcmp(head->PESEL, surname))){
 			if(info){
 				_Bool back = 0;
 				while(!back){
