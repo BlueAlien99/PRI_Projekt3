@@ -1,7 +1,6 @@
 CC := gcc -std=c99
-CFLAGS := -Wall -pedantic -g
-#remove -g flag
-INC := -Iinclude
+CFLAGS := -Wall -pedantic #-g
+INC := -Iinclude/
 #LIB :=
 
 SRCDIR := src
@@ -13,8 +12,8 @@ SRCEXT := c
 SOURCES := $(wildcard $(SRCDIR)/*.$(SRCEXT))
 OBJECTS := $(SOURCES: .$(SRCEXT)=.o)
 
-#$(TARGET): $(OBJECTS)
-Clinic: $(OBJECTS)
+$(TARGET): $(OBJECTS)
+#Clinic: $(OBJECTS)
 	mkdir -p $(TARGETDIR)
 	$(CC) $^ -o $@ $(CFLAGS)
 
