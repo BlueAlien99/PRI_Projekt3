@@ -11,6 +11,8 @@
 #define LEN(S) "%"#S"s"
 #define MLEN(S) LEN(S)
 
+extern const char MONTH[][4];
+
 typedef unsigned int uint;
 typedef long long llong;
 
@@ -19,6 +21,7 @@ _Bool getString(char str[]);
 _Bool getStringForm(char str[], const char form[]);
 _Bool validateString(char str[]);
 _Bool verifyPesel(char p[], int sex);
+_Bool getDoBfromPesel(char p[]);
 void upFirstLowRest(char str[]);
 int getInt();
 int getIntForm(const char form[]);

@@ -1,5 +1,8 @@
 #include "../include/Utilities.h"
 
+const char MONTH[][4] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug",
+	"Sep", "Oct", "Nov", "Dec"};
+
 _Bool clearBuffer(){
 	_Bool clutter = 0;
 	char c = getchar();
@@ -65,7 +68,39 @@ _Bool verifyPesel(char p[], int sex){
 		printf("\n> Checksum error!\n");
 		return 0;
 	}
-	printf("\n> OK!\n");
+	if(getDoBfromPesel(p)){
+		printf("\n> OK!\n");
+	}
+	return 1;
+}
+
+_Bool getDoBfromPesel(char p[]){
+	char year_s[3] = "";
+	char month_s[3] = "";
+	char day_s[3] = "";
+	strncpy(year_s, p, 2);
+	strncpy(month_s, p+2, 2);
+	strncpy(day_s, p+4, 2);
+	int month = strtol(month_s, NULL, 10);
+	int day = strtol(day_s, NULL, 10);
+	char fullyear[5] = "";
+	if(month >= 1 && month <= 12){
+		strcpy(fullyear, "19");
+		strcat(fullyear, year_s);
+	}
+	else if(month >= 21 && month <= 32){
+		strcpy(fullyear, "20");
+		strcat(fullyear, year_s);
+		month -= 20;
+	} else{
+		printf("\n> Month out of range!\n");
+		return 0;
+	}
+	if(day > 31 || day == 0){
+		printf("\n> Day out of range!\n");
+		return 0;
+	}
+	printf("\nDate of birth: %s %s %s", fullyear, MONTH[month-1], day_s);
 	return 1;
 }
 
