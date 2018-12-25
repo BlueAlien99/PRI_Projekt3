@@ -70,8 +70,9 @@ _Bool verifyPesel(char p[], int sex){
 	}
 	if(getDoBfromPesel(p)){
 		printf("\n> OK!\n");
+		return 1;
 	}
-	return 1;
+	return 0;
 }
 
 _Bool getDoBfromPesel(char p[]){
