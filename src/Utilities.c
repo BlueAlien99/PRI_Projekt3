@@ -19,7 +19,7 @@ _Bool getString(char str[]){
 	return validateString(str);
 }
 
-_Bool getStringForm(char str[], char form[]){
+_Bool getStringForm(char str[], const char form[]){
 	printf("%s: ", form);
 	_Bool ret = getString(str);
 	return ret;
@@ -90,7 +90,7 @@ int getInt(){
 	return x;
 }
 
-int getIntForm(char form[]){
+int getIntForm(const char form[]){
 	printf("%s: ", form);
 	return getInt();
 }

@@ -10,7 +10,7 @@
 #include "../include/PatientsDB.h"
 
 void help();
-void menu();
+void menu(Patient **head, Patient **tail);
 
 int main(void){
 	srand(time(NULL));

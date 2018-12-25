@@ -36,21 +36,22 @@ struct Patient{
 	uint visits;
 };
 
-void addPatientWizard();
-void addPatient();
-Patient* findPatient(Patient**, Patient**, _Bool);
-void printPatientInfo(Patient*);
-int findPatientMenu(Patient**, Patient**, Patient*);
-void delPatient();
-void moveEl();
-void mergeSortWizard();
-Patient* mergeSort();
-Patient* merge();
-int printPatients(Patient*, _Bool);
-void getStats();
-void printStats();
-void printStatsLine();
-void populateDB();
-void freeDB();
+void addPatientWizard(Patient **head, Patient **tail);
+void addPatient(Patient **head, Patient **tail, char name[], char surname[],
+	char pesel[], int sex, int state, int visits);
+Patient* findPatient(Patient **m_head, Patient **m_tail, _Bool info);
+void printPatientInfo(Patient *head);
+int findPatientMenu(Patient **m_head, Patient **m_tail, Patient *head);
+void delPatient(Patient **head, Patient **tail, Patient *el);
+void moveEl(Patient **src, Patient **target, Patient **targetTail);
+void mergeSortWizard(Patient **head, Patient **tail);
+Patient* mergeSort(Patient *head);
+Patient* merge(Patient *left, Patient *right);
+int printPatients(Patient *head, _Bool info);
+void getStats(Patient *head);
+void printStats(uint stats[][NOFSTATS], double avgvisit[]);
+void printStatsLine(char header[], uint stats[][NOFSTATS], int i);
+void populateDB(Patient **head, Patient **tail);
+void freeDB(Patient **head, Patient **tail);
 
 #endif

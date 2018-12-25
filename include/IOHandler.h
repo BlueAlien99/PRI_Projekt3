@@ -13,13 +13,13 @@
 #define MAX_FGETS 128
 #define MAX_SCANF 64
 
-void getPath(char*, _Bool);
-void saveFile(Patient*);
-void readFile(Patient**, Patient**);
-_Bool readChar(FILE*, char, char*);
-_Bool readString(FILE*, const char*, char*);
-_Bool readInt(FILE*, const char*, int*);
-void saveFileBin(Patient*);
-void readFileBin(Patient**, Patient**);
+void getPath(char path[], _Bool bin);
+void saveFile(Patient *head);
+void readFile(Patient **head, Patient **tail);
+_Bool readChar(FILE *file, char c, char *readchar);
+_Bool readString(FILE *file, const char str[], char des[]);
+_Bool readInt(FILE *file, const char str[], int *n);
+void saveFileBin(Patient *head);
+void readFileBin(Patient **head, Patient **tail);
 
 #endif
